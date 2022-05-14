@@ -57,7 +57,7 @@ const App = () => {
             { !scan &&
               <View style={styles.sectionContainer}>
                 <Button
-                  title="Start Scan"
+                  title="Ler QrCode"
                   color="#f194ff"
                   onPress={this.startScan}
                 />
@@ -72,12 +72,12 @@ const App = () => {
                   onRead={this.onSuccess}
                   topContent={
                     <Text style={styles.centerText}>
-                      Scan your QRCode!
+                      Escaneie seu QRCode!
                     </Text>
                   }
                   bottomContent={
                     <TouchableOpacity style={styles.buttonTouchable} onPress={() => setScan(false)}>
-                      <Text style={styles.buttonText}>Cancel Scan</Text>
+                      <Text style={styles.buttonText}>Cancelar leitura</Text>
                     </TouchableOpacity>
                   }
                 />
@@ -138,6 +138,8 @@ const styles = StyleSheet.create({
   },
   buttonTouchable: {
     padding: 16,
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    borderRadius: 32
   },
 });
 
