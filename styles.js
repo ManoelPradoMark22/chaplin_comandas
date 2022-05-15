@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Button } from 'react-native';
+import { Button, FlatList } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Form = styled.View`
@@ -23,4 +23,7 @@ export const SubmitButton = styled(Button)`
 export const TitleButton = styled.Text`
   font-size:${RFValue(14)}px;
   color: #FFFFFF;
+`;
+
+export const TransactionList = styled(FlatList)`
 `;

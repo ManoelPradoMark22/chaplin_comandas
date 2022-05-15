@@ -8,6 +8,7 @@ import { Container, Error } from './styles';
 export function InputForm({
   control,
   name,
+  defaultValue,
   multiline,
   error,
   ...rest
@@ -21,6 +22,7 @@ export function InputForm({
           <Input
             onChangeText={onChange}
             multiline={multiline}
+            defaultValue={defaultValue}
             value={value}
             {...rest}
           />

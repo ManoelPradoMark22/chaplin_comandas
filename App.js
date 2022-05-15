@@ -6,8 +6,9 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Alert,
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -21,6 +22,7 @@ import {
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Colors,
@@ -34,6 +36,7 @@ import {
   Form,
   Fields,
   SubmitButton,
+  TransactionList
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -58,17 +61,82 @@ const App = () => {
 
   const [scan, setScan] = useState(false);
   const [result, setResult] = useState(null);
+  const [register, setRegister] = useState([]);
+  const [existingData, setExistingData] = useState(null);
+
+  async function loadRegisters(){
+    const dataKey = '@chaplinComandas:comandas';
+    const response = await AsyncStorage.getItem(dataKey);
+    const comandas = response ? JSON.parse(response) : [];
+
+    setRegister(comandas);
+  }
+
+  async function loadRegisterWhenScanned(idLido){
+    try {
+      const dataKey = '@chaplinComandas:comandas';
+      const response = await AsyncStorage.getItem(dataKey);
+      const comandas = response ? JSON.parse(response) : [];
+      comandas.map((comanda) => {
+        if (comanda.id == idLido) {
+          setExistingData({
+            id: idLido,
+            name: comanda.name,
+            description: comanda.description
+          })
+        }
+      })
+    } catch (error){
+      console.log(error);
+      Alert.alert("Não foi possível salvar!");
+    }
+  }
+
+  async function handleRegister(form) {
+    const comandaAtualizada = {
+      id: result,
+      name: form.name,
+      description: form.description
+    }
+    
+    try {
+      const dataKey = '@chaplinComandas:comandas';
+
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : [];
+
+      const dataFormatted = [
+        comandaAtualizada,
+        ...currentData
+      ]
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+      /*Resetando os campos após o cadastro:*/
+      reset();
+
+    } catch (error){
+      console.log(error);
+      Alert.alert("Não foi possível salvar!");
+    }
+  }
 
   onSuccess = (e) => {
+    loadRegisterWhenScanned(e.data);
     setResult(e.data);
     setScan(false);
   }
 
   startScan = () => {
     setResult(null);
+    setExistingData(null);
     reset();
     setScan(true);
   }
+
+  useEffect(() => {
+    loadRegisters();
+  },[]);
 
   return (
     <>
@@ -95,6 +163,7 @@ const App = () => {
                   <Fields>
                     <InputForm
                       name="name"
+                      defaultValue={existingData && existingData.name}
                       control={control}
                       placeholder="Nome"
                       autoCapitalize="sentences"
@@ -103,6 +172,7 @@ const App = () => {
                     />
                     <InputForm
                       name="description"
+                      defaultValue={existingData && existingData.description}
                       multiline
                       control={control}
                       placeholder="Descrição"
@@ -113,7 +183,7 @@ const App = () => {
                   </Fields>
                   <SubmitButton 
                     title="Salvar comanda"
-                    onPress={handleSubmit(() => {})}
+                    onPress={handleSubmit(handleRegister)}
                   />
                 </Form>
               </View>
@@ -138,6 +208,13 @@ const App = () => {
                 />
               </View>
             }
+            <TransactionList 
+              data={register}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => <Text>{`id: ${item.id}, name: ${item.name}, descrip: ${item.description}`}</Text>}
+              ListEmptyComponent={
+                <Text>LISTA VAZIA</Text>}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>
