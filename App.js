@@ -15,8 +15,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  Button,
-  TextInput
+  Button
 } from 'react-native';
 
 import * as Yup from 'yup';
@@ -29,12 +28,12 @@ import {
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
+import { InputForm } from './src/components/InputForm';
+
 import {
   Form,
   Fields,
-  InputForm,
   SubmitButton,
-  TitleButton
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -88,12 +87,12 @@ const App = () => {
                 />
               </View>
             }
-            
+            { result &&
               <View style={styles.sectionMain}>
                 <Text style={styles.centerText}>1</Text>
                 <Form>
                   <Fields>
-                    <TextInput
+                    <InputForm
                       name="name"
                       control={control}
                       placeholder="Nome"
@@ -101,13 +100,13 @@ const App = () => {
                       autoCorrect={false}
                       error={errors.name && errors.name.message}
                     />
-                    <TextInput
+                    <InputForm
                       name="description"
                       control={control}
                       placeholder="Descrição"
                       autoCapitalize="sentences"
                       autoCorrect={false}
-                      error={errors.name && errors.name.message}
+                      error={errors.description && errors.description.message}
                     />
                   </Fields>
                   <SubmitButton 
@@ -116,7 +115,7 @@ const App = () => {
                   />
                 </Form>
               </View>
-            
+            }
             { scan &&
               <View style={styles.sectionContainer}>
                 <QRCodeScanner
