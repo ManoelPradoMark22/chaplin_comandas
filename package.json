@@ -10,11 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "react": "16.11.0",
+    "react-hook-form": "^7.31.1",
     "react-native": "0.62.0",
     "react-native-camera": "^3.21.0",
     "react-native-permissions": "^2.0.10",
-    "react-native-qrcode-scanner": "^1.4.0"
+    "react-native-qrcode-scanner": "^1.4.0",
+    "react-native-responsive-fontsize": "^0.5.1",
+    "styled-components": "^5.3.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

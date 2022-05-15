@@ -19,13 +19,43 @@ import {
   TextInput
 } from 'react-native';
 
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
+import {
+  Form,
+  Fields,
+  InputForm,
+  SubmitButton,
+  TitleButton
+} from './styles';
+
+const schema = Yup.object().shape({
+  name: Yup
+  .string()
+  .required('Nome é obrigatório'),
+  description: Yup
+  .string()
+  .required('Descrição é obrigatória'),
+});
+
 const App = () => {
+
+  const { 
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  });
 
   const [scan, setScan] = useState(false)
   const [result, setResult] = useState()
@@ -61,8 +91,30 @@ const App = () => {
             
               <View style={styles.sectionMain}>
                 <Text style={styles.centerText}>1</Text>
-                <TextInput placeholder="Nome cliente" name="name"/>
-                <TextInput placeholder="Descrição" name="description" multiline/>
+                <Form>
+                  <Fields>
+                    <TextInput
+                      name="name"
+                      control={control}
+                      placeholder="Nome"
+                      autoCapitalize="sentences"
+                      autoCorrect={false}
+                      error={errors.name && errors.name.message}
+                    />
+                    <TextInput
+                      name="description"
+                      control={control}
+                      placeholder="Descrição"
+                      autoCapitalize="sentences"
+                      autoCorrect={false}
+                      error={errors.name && errors.name.message}
+                    />
+                  </Fields>
+                  <SubmitButton 
+                    title="Salvar comanda"
+                    onPress={handleSubmit(() => {})}
+                  />
+                </Form>
               </View>
             
             { scan &&
