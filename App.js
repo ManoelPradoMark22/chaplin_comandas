@@ -56,17 +56,18 @@ const App = () => {
     resolver: yupResolver(schema)
   });
 
-  const [scan, setScan] = useState(false)
-  const [result, setResult] = useState()
+  const [scan, setScan] = useState(false);
+  const [result, setResult] = useState(null);
 
   onSuccess = (e) => {
-    setResult(e.data)
-    setScan(false)
+    setResult(e.data);
+    setScan(false);
   }
 
   startScan = () => {
-    setScan(true)
-    setResult()
+    setResult(null);
+    reset();
+    setScan(true);
   }
 
   return (
@@ -89,7 +90,7 @@ const App = () => {
             }
             { result &&
               <View style={styles.sectionMain}>
-                <Text style={styles.centerText}>1</Text>
+                <Text style={styles.centerText}>{result}</Text>
                 <Form>
                   <Fields>
                     <InputForm
@@ -102,6 +103,7 @@ const App = () => {
                     />
                     <InputForm
                       name="description"
+                      multiline
                       control={control}
                       placeholder="Descrição"
                       autoCapitalize="sentences"
