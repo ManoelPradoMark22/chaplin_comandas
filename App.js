@@ -15,11 +15,11 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  Button
+  Button,
+  TextInput
 } from 'react-native';
 
 import {
-  Header,
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
@@ -47,13 +47,8 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
+          
           <View style={styles.body}>
-            { result &&
-              <View style={styles.sectionContainer}>
-                <Text style={styles.centerText}>{result}</Text>
-              </View>
-            }
             { !scan &&
               <View style={styles.sectionContainer}>
                 <Button
@@ -63,6 +58,13 @@ const App = () => {
                 />
               </View>
             }
+            
+              <View style={styles.sectionMain}>
+                <Text style={styles.centerText}>1</Text>
+                <TextInput placeholder="Nome cliente" name="name"/>
+                <TextInput placeholder="Descrição" name="description" multiline/>
+              </View>
+            
             { scan &&
               <View style={styles.sectionContainer}>
                 <QRCodeScanner
@@ -100,6 +102,10 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
   },
+  sectionMain: {
+    marginTop: 10,
+    flexDirection: 'column'
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
@@ -124,9 +130,11 @@ const styles = StyleSheet.create({
   },
   centerText: {
     flex: 1,
-    fontSize: 18,
+    textAlign: 'center',
+    fontSize: 28,
     padding: 32,
     color: '#777',
+    fontWeight: 'bold'
   },
   textBold: {
     fontWeight: '500',
