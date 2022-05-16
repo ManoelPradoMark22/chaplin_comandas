@@ -59,23 +59,24 @@ const App = () => {
     resolver: yupResolver(schema)
   });
 
+  const DATA_KEY = '@chaplinComandas:comandas';
   const [scan, setScan] = useState(false);
   const [result, setResult] = useState(null);
   const [register, setRegister] = useState([]);
   const [existingData, setExistingData] = useState(null);
 
+  /*
   async function loadRegisters(){
-    const dataKey = '@chaplinComandas:comandas';
-    const response = await AsyncStorage.getItem(dataKey);
+    const response = await AsyncStorage.getItem(DATA_KEY);
     const comandas = response ? JSON.parse(response) : [];
 
     setRegister(comandas);
   }
+  */
 
   async function loadRegisterWhenScanned(idLido){
     try {
-      const dataKey = '@chaplinComandas:comandas';
-      const response = await AsyncStorage.getItem(dataKey);
+      const response = await AsyncStorage.getItem(DATA_KEY);
       const comandas = response ? JSON.parse(response) : [];
       comandas.map((comanda) => {
         if (comanda.id == idLido) {
@@ -100,9 +101,7 @@ const App = () => {
     }
     
     try {
-      const dataKey = '@chaplinComandas:comandas';
-
-      const data = await AsyncStorage.getItem(dataKey);
+      const data = await AsyncStorage.getItem(DATA_KEY);
       const currentData = data ? JSON.parse(data) : [];
 
       const dataFormatted = [
@@ -110,7 +109,7 @@ const App = () => {
         ...currentData
       ]
 
-      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+      await AsyncStorage.setItem(DATA_KEY, JSON.stringify(dataFormatted));
 
       /*Resetando os campos após o cadastro:*/
       reset();
@@ -134,8 +133,35 @@ const App = () => {
     setScan(true);
   }
 
+  async function startStorage (){
+    try {
+      const response = await AsyncStorage.getItem(DATA_KEY);
+      if (!response) {
+        let originalArray = [];
+
+        for (let i=0; i<50; i++) {
+          let newObject = {
+            id: i,
+            name: '',
+            description: ''
+          }
+          originalArray.push(newObject);
+        }
+        await AsyncStorage.setItem(DATA_KEY, JSON.stringify(originalArray));
+        console.log("array criado no localstorage!");
+        setRegister(originalArray);
+      } else {
+        setRegister(JSON.parse(response));
+      }
+    } catch (error){
+      console.log(error);
+      Alert.alert("Erro ao checar o banco de dados local!");
+    }
+  }
+
   useEffect(() => {
-    loadRegisters();
+    startStorage();
+    //loadRegisters();
   },[]);
 
   return (
