@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { Input } from '../Input';
@@ -8,7 +8,8 @@ import { Container, Error } from './styles';
 export function InputForm({
   control,
   name,
-  defaultValue,
+  value,
+  onChangeText,
   multiline,
   error,
   ...rest
@@ -18,11 +19,10 @@ export function InputForm({
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange:onChangeText, value:value } }) => (
           <Input
-            onChangeText={onChange}
+            onChangeText={onChangeText}
             multiline={multiline}
-            defaultValue={defaultValue}
             value={value}
             {...rest}
           />

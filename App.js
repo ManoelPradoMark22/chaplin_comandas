@@ -54,6 +54,7 @@ const App = () => {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema)
@@ -63,7 +64,8 @@ const App = () => {
   const [scan, setScan] = useState(false);
   const [result, setResult] = useState(null);
   const [register, setRegister] = useState([]);
-  const [existingData, setExistingData] = useState(null);
+  const [existingName, setExistingName] = useState('');
+  const [existingDesc, setExistingDesc] = useState('');
 
   /*
   async function loadRegisters(){
@@ -80,11 +82,10 @@ const App = () => {
       const comandas = response ? JSON.parse(response) : [];
       comandas.map((comanda) => {
         if (comanda.id == idLido) {
-          setExistingData({
-            id: idLido,
-            name: comanda.name,
-            description: comanda.description
-          })
+          setValue('name', comanda.name)
+          setValue('description', comanda.description)
+          setExistingName(comanda.name);
+          setExistingDesc(comanda.description);
         }
       })
     } catch (error){
@@ -113,6 +114,8 @@ const App = () => {
 
       /*Resetando os campos após o cadastro:*/
       reset();
+      setExistingName('');
+      setExistingDesc('');
 
     } catch (error){
       console.log(error);
@@ -128,7 +131,8 @@ const App = () => {
 
   startScan = () => {
     setResult(null);
-    setExistingData(null);
+    setExistingName('');
+    setExistingDesc('');
     reset();
     setScan(true);
   }
@@ -189,7 +193,8 @@ const App = () => {
                   <Fields>
                     <InputForm
                       name="name"
-                      defaultValue={existingData && existingData.name}
+                      value={existingName}
+                      onChangeText={setExistingName}
                       control={control}
                       placeholder="Nome"
                       autoCapitalize="sentences"
@@ -198,7 +203,8 @@ const App = () => {
                     />
                     <InputForm
                       name="description"
-                      defaultValue={existingData && existingData.description}
+                      value={existingDesc}
+                      onChangeText={setExistingDesc}
                       multiline
                       control={control}
                       placeholder="Descrição"
