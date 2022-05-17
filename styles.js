@@ -36,12 +36,20 @@ export const DeleteButton = styled(TouchableOpacity)`
   border-radius: ${RFValue(20)}px;
 `;
 
-export const TextButton = styled.Text`
+export const FooterTitle = styled.Text`
   display: flex;
   font-weight: bold;
-  font-size: ${RFValue(20)}px;
+  font-size: ${RFValue(18)}px;
   text-align: center;
-  color: #FFFFFF;
+`;
+
+export const Separator = styled.View`
+  border-style: dashed;
+  border-radius: 1;
+  margin-top: ${RFValue(20)}px;
+  margin-bottom: ${RFValue(10)}px;
+  border-bottom-color: #000000;
+  border-width: 1;
 `;
 
 export const TransactionList = styled(FlatList)`

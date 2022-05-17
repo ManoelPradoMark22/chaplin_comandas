@@ -39,7 +39,8 @@ import {
   ViewButton,
   SubmitButton,
   DeleteButton,
-  TextButton,
+  FooterTitle,
+  Separator,
   TransactionList
 } from './styles';
 
@@ -330,10 +331,12 @@ const App = () => {
                 />
               </View>
             }
+            <Separator/>
+            <FooterTitle>Comandas ativas</FooterTitle>
             <TransactionList 
               data={register}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => <Text>{`id: ${item.id}, name: ${item.name}, descrip: ${item.description}`}</Text>}
+              renderItem={({ item }) => item.description!=='' && <Text>{`id: ${item.id}, name: ${item.name}, descrip: ${item.description}`}</Text>}
               ListEmptyComponent={
                 <Text>LISTA VAZIA</Text>}
             />
