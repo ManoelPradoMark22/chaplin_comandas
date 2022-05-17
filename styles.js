@@ -2,6 +2,43 @@ import styled from 'styled-components/native';
 import { Button, FlatList, TouchableOpacity } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+export const MainHeader = styled.View`
+  flex: 1;
+  margin-top: ${RFValue(5)}px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const BoxSearchInput = styled.View`
+
+`;
+
+export const BoxTextDivisor = styled.View`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: ${RFValue(2)}px;
+  margin-bottom: ${RFValue(5)}px;
+`;
+
+export const Line = styled.View`
+  border-radius: 1;
+  border-color: rgba(0, 0 , 0 , 0.4);
+  border-width: 0.2px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const OrTextDivisor = styled.Text`
+  text-align: center;
+  padding: 0 ${RFValue(3)}px;
+`;
+
 export const BoxNumber = styled.View`
   flex: 1;
   position: relative;

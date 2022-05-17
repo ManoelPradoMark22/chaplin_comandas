@@ -17,6 +17,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Button,
+  TextInput
 } from 'react-native';
 
 import * as Yup from 'yup';
@@ -37,6 +38,11 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { InputForm } from './src/components/InputForm';
 
 import {
+  MainHeader,
+  BoxSearchInput,
+  BoxTextDivisor,
+  Line,
+  OrTextDivisor,
   BoxNumber,
   ComandaNumber,
   PositionBoxButton,
@@ -86,6 +92,7 @@ const App = () => {
   const [register, setRegister] = useState([]);
   const [existingName, setExistingName] = useState('');
   const [existingDesc, setExistingDesc] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
   async function loadRegisterWhenScanned(idLido){
     try {
@@ -280,13 +287,25 @@ const App = () => {
           
           <View style={styles.body}>
             { !scan &&
-              <View style={styles.sectionContainer}>
+              <MainHeader>
+                <BoxSearchInput>
+                  <TextInput
+                    onChangeText={setSearchValue}
+                    value={searchValue}
+                    placeholder="Pesquisar pelo nº da comanda"
+                  />
+                </BoxSearchInput>
+                <BoxTextDivisor>
+                  <Line/>
+                  <OrTextDivisor>ou</OrTextDivisor>
+                  <Line/>
+                </BoxTextDivisor>
                 <Button
                   title="Ler QrCode"
                   color="#f194ff"
                   onPress={this.startScan}
                 />
-              </View>
+              </MainHeader>
             }
             { result &&
               <View style={styles.sectionMain}>
