@@ -98,6 +98,38 @@ const App = () => {
     }
   }
 
+  async function handleClean() {
+    try {
+      const comandaAtualizada = {
+        id: result,
+        name: '',
+        description: ''
+      }
+
+      const data = await AsyncStorage.getItem(DATA_KEY);
+      const currentData = data ? JSON.parse(data) : [];
+
+      currentData.map((comanda, index) => {
+        if (comanda.id == result) {
+          currentData[index] = comandaAtualizada;
+        }
+      });
+
+      await AsyncStorage.setItem(DATA_KEY, JSON.stringify(currentData));
+      setRegister(currentData);
+
+      /*Resetando os campos após o cadastro:*/
+      reset();
+      setResult(null);
+      setExistingName('');
+      setExistingDesc('');
+
+    } catch (error){
+      console.log(error);
+      Alert.alert("Não foi possível limpar!");
+    }
+  }
+
   async function handleRegister(form) {
     try {
       const comandaAtualizada = {
@@ -128,6 +160,21 @@ const App = () => {
       console.log(error);
       Alert.alert("Não foi possível salvar!");
     }
+  }
+
+  function confirmCleaning() {
+    Alert.alert(
+      'ATENÇÃO! LIMPAR COMANDA!',
+      'Deseja realmente LIMPAR essa comanda?',
+      [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Confirmar", onPress: () => handleClean() }
+      ]
+    );
   }
 
   function confirmRegister(form) {
@@ -217,7 +264,7 @@ const App = () => {
                 />
               </View>
             }
-            { !result &&
+            { result &&
               <View style={styles.sectionMain}>
                 <Text style={styles.centerText}>{result}</Text>
                 <Form>
@@ -253,7 +300,7 @@ const App = () => {
                     </ViewButton>
                     <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
                       <DeleteButton 
-                        onPress={() => {console.log("Clique delete")}}
+                        onPress={confirmCleaning}
                         style={styles.shadow}
                       >
                         <Icon name="broom" size={30} color="#FFFFFF"/>
