@@ -139,10 +139,7 @@ const App = () => {
       setRegister(currentData);
 
       /*Resetando os campos após o cadastro:*/
-      reset();
-      setResult(null);
-      setExistingName('');
-      setExistingDesc('');
+      closeInfo();
 
     } catch (error){
       console.log(error);
@@ -171,10 +168,7 @@ const App = () => {
       setRegister(currentData);
 
       /*Resetando os campos após o cadastro:*/
-      reset();
-      setResult(null);
-      setExistingName('');
-      setExistingDesc('');
+      closeInfo();
 
     } catch (error){
       console.log(error);
@@ -215,7 +209,7 @@ const App = () => {
   function confirmRegister(form) {
     Alert.alert(
       'ATENÇÃO!',
-      'Deseja CONFIRMAR as alterações nesta comanda?',
+      'Deseja SALVAR as alterações nesta comanda?',
       [
         {
           text: "Cancelar",
@@ -225,6 +219,13 @@ const App = () => {
         { text: "Confirmar", onPress: () => handleRegister(form) }
       ]
     );
+  }
+
+  function closeInfo() {
+    reset();
+    setResult(null);
+    setExistingName('');
+    setExistingDesc('');
   }
 
   onSuccess = (e) => {
@@ -299,19 +300,19 @@ const App = () => {
                 />
               </View>
             }
-            { !result &&
+            { result &&
               <View style={styles.sectionMain}>
                 <BoxNumber>
                   <PositionBoxButton>
                     <CloseButton
-                      onPress={() => console.log("ENTROU!!!")}
+                      onPress={closeInfo}
                       style={styles.shadow}
                       activeOpacity={0.6}
                     >
                       <Text style={styles.textClose}>X</Text>
                     </CloseButton>
                   </PositionBoxButton>
-                  <ComandaNumber>1</ComandaNumber>
+                  <ComandaNumber>{result}</ComandaNumber>
                 </BoxNumber>
                 <Form>
                   <Fields>
