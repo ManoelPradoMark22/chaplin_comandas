@@ -23,6 +23,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   Colors,
@@ -253,8 +254,9 @@ const App = () => {
                     <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
                       <DeleteButton 
                         onPress={() => {console.log("Clique delete")}}
+                        style={styles.shadow}
                       >
-                        <TextButton>X</TextButton>
+                        <Icon name="broom" size={30} color="#FFFFFF"/>
                       </DeleteButton>
                     </View>
                   </View>
@@ -296,6 +298,13 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: 'rgba(0,0,0, .6)', // IOS
+    shadowOffset: { height: 2, width: 2 }, // IOS
+    shadowOpacity: 2, // IOS
+    shadowRadius: 4, //IOS
+    elevation: 4, // Android
+  },
   scrollView: {
     backgroundColor: Colors.lighter,
   },
