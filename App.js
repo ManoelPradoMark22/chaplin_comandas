@@ -34,6 +34,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { InputForm } from './src/components/InputForm';
 
 import {
+  ComandaNumber,
   Form,
   Fields,
   ViewButton,
@@ -104,6 +105,14 @@ const App = () => {
       console.log(error);
       Alert.alert("Não foi possível salvar!");
     }
+  }
+
+  function loadRegisterAfterLongPress(data){
+    setValue('name', data.name)
+    setValue('description', data.description)
+    setExistingName(data.name);
+    setExistingDesc(data.description);
+    setResult(data.id);
   }
 
   async function handleClean() {
@@ -195,7 +204,7 @@ const App = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "Confirmar", onPress: () => {} }
+        { text: "Confirmar", onPress: () => loadRegisterAfterLongPress(data) }
       ]
     );
   }
@@ -289,7 +298,7 @@ const App = () => {
             }
             { result &&
               <View style={styles.sectionMain}>
-                <Text style={styles.centerText}>{result}</Text>
+                <ComandaNumber>{result}</ComandaNumber>
                 <Form>
                   <Fields>
                     <InputForm

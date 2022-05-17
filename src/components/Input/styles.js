@@ -9,7 +9,7 @@ export const Container = styled(TextInput)`
   font-size: ${RFValue(14)}px;
 
   color: #000000;
-  background-color: #FFFFFF;
+  background-color: #f9f9f9;
   border-radius: 5px;
 
   margin-bottom: 8px;

@@ -2,11 +2,24 @@ import styled from 'styled-components/native';
 import { Button, FlatList, TouchableOpacity } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+export const ComandaNumber = styled.Text`
+    flex: 1;
+    text-align: center;
+    font-size: ${RFValue(50)}px;
+    margin-top: ${RFValue(10)}px;
+    color: #777777;
+    font-weight: bold;
+    text-shadow: -1px 1px 5px #dddddd;
+`;
+
 export const Form = styled.View`
   flex: 1;
   justify-content: space-between;
   width: 100%;
-  padding: 24px;
+  margin-top: ${RFValue(10)}px;
+  margin-bottom: ${RFValue(5)}px;
+  padding-right: ${RFValue(20)}px;
+  padding-left: ${RFValue(20)}px;
 `;
 
 export const Fields = styled.View``;
