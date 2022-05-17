@@ -217,3 +217,13 @@ export const ActiveDate = styled.Text`
   padding-top: ${RFValue(5)}px;
   font-size: ${RFValue(7)}px;
 `;
+
+export const ImageContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ImageEmpty = styled.Image`
+  width: 300px;
+  height: 236px;
+`;

@@ -37,6 +37,8 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 
 import { InputForm } from './src/components/InputForm';
 
+import emptyListImage from './src/assets/opps.png';
+
 import {
   MainHeader,
   BoxSearchInput,
@@ -64,7 +66,9 @@ import {
   ActiveBody,
   ActiveName,
   ActiveDesc,
-  ActiveDate
+  ActiveDate,
+  ImageContainer,
+  ImageEmpty
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -394,9 +398,9 @@ const App = () => {
             <Separator/>
             <FooterTitle>Comandas ativas</FooterTitle>
             <TransactionList 
-              data={register}
+              data={register.filter((item) => item.description!=='')}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => item.description!=='' && 
+              renderItem={({ item }) =>
                 <TouchableOpacity 
                   style={styles.shadow}
                   activeOpacity={0.6}
@@ -413,13 +417,16 @@ const App = () => {
                     <ActiveBody>
                       <ActiveName>{item.name}</ActiveName>
                       <ActiveDesc>{item.description}</ActiveDesc>
-                      <ActiveDate>{`(${item.date})`}</ActiveDate>
+                      <ActiveDate>{item.date}</ActiveDate>
                     </ActiveBody>
                   </ActiveView>
                 </TouchableOpacity>
               }
               ListEmptyComponent={
-                <Text>LISTA VAZIA</Text>}
+                <ImageContainer>
+                  <ImageEmpty source={emptyListImage}/>
+                </ImageContainer>
+              }
             />
           </View>
         </ScrollView>
