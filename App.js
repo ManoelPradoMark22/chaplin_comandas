@@ -191,21 +191,6 @@ const App = () => {
     );
   }
 
-  function handleOnLongPress(data) {
-    Alert.alert(
-      'Editar comanda',
-      `Deseja editar a comanda ${data.id}?`,
-      [
-        {
-          text: "Cancelar",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "Confirmar", onPress: () => loadRegisterAfterLongPress(data) }
-      ]
-    );
-  }
-
   function confirmRegister(form) {
     Alert.alert(
       'ATENÇÃO!',
@@ -229,11 +214,11 @@ const App = () => {
   }
 
   onSuccess = (e) => {
-    let value = e.data;
+    console.log(e.data);
     for(let i=0; i<50; i++) {
-      if(value==i) {
-        loadRegisterWhenScanned(value);
-        setResult(value);
+      if(e.data==i) {
+        loadRegisterWhenScanned(e.data);
+        setResult(e.data);
         setScan(false);
         return;
       }
@@ -387,7 +372,7 @@ const App = () => {
                 <TouchableOpacity 
                   style={styles.shadow}
                   activeOpacity={0.6}
-                  onLongPress={() => handleOnLongPress(item)}
+                  onLongPress={() => loadRegisterAfterLongPress(item)}
                 >
                   <ActiveView>
                     <HeaderBox>
