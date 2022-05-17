@@ -36,13 +36,6 @@ export const DeleteButton = styled(TouchableOpacity)`
   border-radius: ${RFValue(20)}px;
 `;
 
-export const FooterTitle = styled.Text`
-  display: flex;
-  font-weight: bold;
-  font-size: ${RFValue(18)}px;
-  text-align: center;
-`;
-
 export const Separator = styled.View`
   border-style: dashed;
   border-radius: 1;
@@ -52,5 +45,62 @@ export const Separator = styled.View`
   border-width: 1;
 `;
 
+export const FooterTitle = styled.Text`
+  display: flex;
+  font-weight: bold;
+  font-size: ${RFValue(18)}px;
+  text-align: center;
+  margin-bottom: ${RFValue(4)}px;
+`;
+
 export const TransactionList = styled(FlatList)`
+`;
+
+export const ActiveView = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #F0F2F5;
+  margin-left: ${RFValue(4)}px;
+  margin-top: ${RFValue(4)}px;
+  margin-bottom: ${RFValue(4)}px;
+`;
+
+export const HeaderBox = styled.View`
+  min-width: 42px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: rgba(237, 27, 36, 0.7);
+`;
+
+export const HeaderFlexbox = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ActiveHeader = styled.Text`
+  font-size: ${RFValue(20)}px;
+  font-weight: bold;
+`;
+
+export const ActiveBody = styled.View`
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  
+  padding: 13px 24px;
+  background-color: #FFFFFF;
+`;
+
+export const ActiveName = styled.Text`
+  text-align: center;
+  font-weight: bold;
+`;
+
+export const ActiveDesc = styled.Text`
+
 `;

@@ -41,7 +41,14 @@ import {
   DeleteButton,
   FooterTitle,
   Separator,
-  TransactionList
+  TransactionList,
+  ActiveView,
+  HeaderBox,
+  HeaderFlexbox,
+  ActiveHeader,
+  ActiveBody,
+  ActiveName,
+  ActiveDesc
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -336,7 +343,21 @@ const App = () => {
             <TransactionList 
               data={register}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => item.description!=='' && <Text>{`id: ${item.id}, name: ${item.name}, descrip: ${item.description}`}</Text>}
+              renderItem={({ item }) => item.description!=='' && 
+                <ActiveView style={styles.shadow}>
+                  <HeaderBox>
+                    <HeaderFlexbox>
+                      <ActiveHeader>
+                        {item.id}
+                      </ActiveHeader>
+                    </HeaderFlexbox>
+                  </HeaderBox>
+                  <ActiveBody>
+                    <ActiveName>{item.name}</ActiveName>
+                    <ActiveDesc>{item.description}</ActiveDesc>
+                  </ActiveBody>
+                </ActiveView>
+              }
               ListEmptyComponent={
                 <Text>LISTA VAZIA</Text>}
             />
