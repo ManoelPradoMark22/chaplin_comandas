@@ -185,6 +185,21 @@ const App = () => {
     );
   }
 
+  function handleOnLongPress(data) {
+    Alert.alert(
+      'Editar comanda',
+      `Deseja editar a comanda ${data.id}?`,
+      [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Confirmar", onPress: () => {} }
+      ]
+    );
+  }
+
   function confirmRegister(form) {
     Alert.alert(
       'ATENÇÃO!',
@@ -310,6 +325,7 @@ const App = () => {
                       <DeleteButton 
                         onPress={confirmCleaning}
                         style={styles.shadow}
+                        activeOpacity={0.6}
                       >
                         <Icon name="broom" size={30} color="#FFFFFF"/>
                       </DeleteButton>
@@ -344,19 +360,25 @@ const App = () => {
               data={register}
               keyExtractor={item => item.id}
               renderItem={({ item }) => item.description!=='' && 
-                <ActiveView style={styles.shadow}>
-                  <HeaderBox>
-                    <HeaderFlexbox>
-                      <ActiveHeader>
-                        {item.id}
-                      </ActiveHeader>
-                    </HeaderFlexbox>
-                  </HeaderBox>
-                  <ActiveBody>
-                    <ActiveName>{item.name}</ActiveName>
-                    <ActiveDesc>{item.description}</ActiveDesc>
-                  </ActiveBody>
-                </ActiveView>
+                <TouchableOpacity 
+                  style={styles.shadow}
+                  activeOpacity={0.6}
+                  onLongPress={() => handleOnLongPress(item)}
+                >
+                  <ActiveView>
+                    <HeaderBox>
+                      <HeaderFlexbox>
+                        <ActiveHeader>
+                          {item.id}
+                        </ActiveHeader>
+                      </HeaderFlexbox>
+                    </HeaderBox>
+                    <ActiveBody>
+                      <ActiveName>{item.name}</ActiveName>
+                      <ActiveDesc>{item.description}</ActiveDesc>
+                    </ActiveBody>
+                  </ActiveView>
+                </TouchableOpacity>
               }
               ListEmptyComponent={
                 <Text>LISTA VAZIA</Text>}
