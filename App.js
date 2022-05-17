@@ -34,7 +34,10 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { InputForm } from './src/components/InputForm';
 
 import {
+  BoxNumber,
   ComandaNumber,
+  PositionBoxButton,
+  CloseButton,
   Form,
   Fields,
   ViewButton,
@@ -296,9 +299,20 @@ const App = () => {
                 />
               </View>
             }
-            { result &&
+            { !result &&
               <View style={styles.sectionMain}>
-                <ComandaNumber>{result}</ComandaNumber>
+                <BoxNumber>
+                  <PositionBoxButton>
+                    <CloseButton
+                      onPress={() => console.log("ENTROU!!!")}
+                      style={styles.shadow}
+                      activeOpacity={0.6}
+                    >
+                      <Text style={styles.textClose}>X</Text>
+                    </CloseButton>
+                  </PositionBoxButton>
+                  <ComandaNumber>1</ComandaNumber>
+                </BoxNumber>
                 <Form>
                   <Fields>
                     <InputForm
@@ -401,7 +415,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: 'rgba(0,0,0, .6)', // IOS
+    shadowColor: 'rgba(0,0,0, 0.6)', // IOS
     shadowOffset: { height: 2, width: 2 }, // IOS
     shadowOpacity: 2, // IOS
     shadowRadius: 4, //IOS
@@ -453,6 +467,11 @@ const styles = StyleSheet.create({
   textBold: {
     fontWeight: '500',
     color: '#000',
+  },
+  textClose: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
   buttonText: {
     fontSize: 21,

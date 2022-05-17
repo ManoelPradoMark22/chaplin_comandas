@@ -2,21 +2,45 @@ import styled from 'styled-components/native';
 import { Button, FlatList, TouchableOpacity } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+export const BoxNumber = styled.View`
+  flex: 1;
+  position: relative;
+  margin-top: ${RFValue(10)}px;
+  margin-right: ${RFValue(20)}px;
+  margin-left: ${RFValue(20)}px;
+`;
+
 export const ComandaNumber = styled.Text`
-    flex: 1;
     text-align: center;
     font-size: ${RFValue(50)}px;
-    margin-top: ${RFValue(10)}px;
     color: #777777;
     font-weight: bold;
     text-shadow: -1px 1px 5px #dddddd;
+`;
+
+export const PositionBoxButton = styled.View`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+`;
+
+export const CloseButton = styled(TouchableOpacity)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(232, 63, 91, 0.8);
+  height: ${RFValue(20)}px;
+  width: ${RFValue(20)}px;
+  padding: ${RFValue(2)}px;
+  border-radius: ${RFValue(10)}px;
 `;
 
 export const Form = styled.View`
   flex: 1;
   justify-content: space-between;
   width: 100%;
-  margin-top: ${RFValue(10)}px;
+  padding-top: ${RFValue(10)}px;
   margin-bottom: ${RFValue(5)}px;
   padding-right: ${RFValue(20)}px;
   padding-left: ${RFValue(20)}px;
