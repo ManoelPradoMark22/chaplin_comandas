@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Button, FlatList } from 'react-native';
+import { Button, FlatList, TouchableOpacity } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Form = styled.View`
@@ -11,17 +11,36 @@ export const Form = styled.View`
 
 export const Fields = styled.View``;
 
+export const ViewButton = styled.View`
+  flex: 1;
+  width: 100%;
+  margin-bottom: ${RFValue(14)}px;
+  justify-content: center;
+`;
+
 export const SubmitButton = styled(Button)`
   width: 100%;
-  background-color: #FF872C;
-
   padding: 18px;
   border-radius: 5px;
   align-items: center;
 `;
 
-export const TitleButton = styled.Text`
-  font-size:${RFValue(14)}px;
+export const DeleteButton = styled(TouchableOpacity)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E83F5B;
+  height: ${RFValue(40)}px;
+  width: ${RFValue(40)}px;
+  padding: ${RFValue(2)}px;
+  border-radius: ${RFValue(20)}px;
+`;
+
+export const TextButton = styled.Text`
+  display: flex;
+  font-weight: bold;
+  font-size: ${RFValue(20)}px;
+  text-align: center;
   color: #FFFFFF;
 `;
 

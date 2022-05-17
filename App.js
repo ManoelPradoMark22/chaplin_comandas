@@ -16,7 +16,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  Button
+  Button,
 } from 'react-native';
 
 import * as Yup from 'yup';
@@ -35,7 +35,10 @@ import { InputForm } from './src/components/InputForm';
 import {
   Form,
   Fields,
+  ViewButton,
   SubmitButton,
+  DeleteButton,
+  TextButton,
   TransactionList
 } from './styles';
 
@@ -213,7 +216,7 @@ const App = () => {
                 />
               </View>
             }
-            { result &&
+            { !result &&
               <View style={styles.sectionMain}>
                 <Text style={styles.centerText}>{result}</Text>
                 <Form>
@@ -240,10 +243,21 @@ const App = () => {
                       error={errors.description && errors.description.message}
                     />
                   </Fields>
-                  <SubmitButton 
-                    title="Salvar comanda"
-                    onPress={handleSubmit(confirmRegister)}
-                  />
+                  <View style={{ flex: 1, flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <ViewButton>
+                      <SubmitButton 
+                        title="Salvar comanda"
+                        onPress={handleSubmit(confirmRegister)}
+                      />
+                    </ViewButton>
+                    <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                      <DeleteButton 
+                        onPress={() => {console.log("Clique delete")}}
+                      >
+                        <TextButton>X</TextButton>
+                      </DeleteButton>
+                    </View>
+                  </View>
                 </Form>
               </View>
             }
