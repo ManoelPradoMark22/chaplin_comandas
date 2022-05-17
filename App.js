@@ -25,6 +25,9 @@ import { useForm } from 'react-hook-form';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
@@ -52,7 +55,8 @@ import {
   ActiveHeader,
   ActiveBody,
   ActiveName,
-  ActiveDesc
+  ActiveDesc,
+  ActiveDate
 } from './styles';
 
 const schema = Yup.object().shape({
@@ -82,15 +86,6 @@ const App = () => {
   const [register, setRegister] = useState([]);
   const [existingName, setExistingName] = useState('');
   const [existingDesc, setExistingDesc] = useState('');
-
-  /*
-  async function loadRegisters(){
-    const response = await AsyncStorage.getItem(DATA_KEY);
-    const comandas = response ? JSON.parse(response) : [];
-
-    setRegister(comandas);
-  }
-  */
 
   async function loadRegisterWhenScanned(idLido){
     try {
@@ -123,7 +118,8 @@ const App = () => {
       const comandaAtualizada = {
         id: result,
         name: '',
-        description: ''
+        description: '',
+        date: ''
       }
 
       const data = await AsyncStorage.getItem(DATA_KEY);
@@ -152,9 +148,15 @@ const App = () => {
       const comandaAtualizada = {
         id: result,
         name: form.name,
-        description: form.description
+        description: form.description,
+        date: Intl.DateTimeFormat('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        }).format(new Date())
       }
-
       const data = await AsyncStorage.getItem(DATA_KEY);
       const currentData = data ? JSON.parse(data) : [];
 
@@ -246,7 +248,8 @@ const App = () => {
           let newObject = {
             id: i,
             name: '',
-            description: ''
+            description: '',
+            date: ''
           }
           originalArray.push(newObject);
         }
@@ -385,6 +388,7 @@ const App = () => {
                     <ActiveBody>
                       <ActiveName>{item.name}</ActiveName>
                       <ActiveDesc>{item.description}</ActiveDesc>
+                      <ActiveDate>{`(${item.date})`}</ActiveDate>
                     </ActiveBody>
                   </ActiveView>
                 </TouchableOpacity>

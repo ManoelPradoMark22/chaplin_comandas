@@ -147,3 +147,10 @@ export const ActiveName = styled.Text`
 export const ActiveDesc = styled.Text`
   text-align: center;
 `;
+
+export const ActiveDate = styled.Text`
+  text-align: center;
+  font-style: italic;
+  padding-top: ${RFValue(5)}px;
+  font-size: ${RFValue(7)}px;
+`;
