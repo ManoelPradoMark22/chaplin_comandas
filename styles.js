@@ -96,6 +96,10 @@ export const ActiveBody = styled.View`
   
   padding: 13px 24px;
   background-color: #FFFFFF;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-width: 0.5;
+  border-top-width: 0.5;
+  border-top-color: rgba(0, 0, 0, 0.1);
 `;
 
 export const ActiveName = styled.Text`
