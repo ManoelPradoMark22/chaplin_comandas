@@ -85,6 +85,8 @@ export const HeaderFlexbox = styled.View`
 export const ActiveHeader = styled.Text`
   font-size: ${RFValue(20)}px;
   font-weight: bold;
+  color: #FFFFFF;
+  text-shadow: -1px 1px 5px rgba(0, 0, 0, 0.75);
 `;
 
 export const ActiveBody = styled.View`
@@ -102,5 +104,5 @@ export const ActiveName = styled.Text`
 `;
 
 export const ActiveDesc = styled.Text`
-
+  text-align: center;
 `;
