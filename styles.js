@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Button, FlatList, TouchableOpacity } from 'react-native';
+import { Button, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const MainHeader = styled.View`
@@ -10,7 +10,34 @@ export const MainHeader = styled.View`
 `;
 
 export const BoxSearchInput = styled.View`
+  background-color: #FFF;
+  border-radius: 5px;
+  margin-top: -28px;
+  margin: 0 24px;
+  flex-direction: row;
+  align-items: center;
+`;
 
+export const SearchInput = styled(TextInput)`
+  flex: 1;
+  height: 56px;
+  padding: 0 20px;
+  background-color: #FFF;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right-width: 1;
+  border-right-color: #EBEBEB;
+  color: #666666;
+`;
+
+export const ButtonSearchSubmit = styled(TouchableOpacity)`
+  background-color: #FFF;
+  height: 56px;
+  padding: 0 12px;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 `;
 
 export const BoxTextDivisor = styled.View`
@@ -20,7 +47,6 @@ export const BoxTextDivisor = styled.View`
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: ${RFValue(2)}px;
   margin-bottom: ${RFValue(5)}px;
 `;
 

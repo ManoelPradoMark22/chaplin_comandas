@@ -16,8 +16,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  Button,
-  TextInput
+  Button
 } from 'react-native';
 
 import * as Yup from 'yup';
@@ -25,6 +24,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconSearch from 'react-native-vector-icons/AntDesign';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
@@ -40,6 +40,8 @@ import { InputForm } from './src/components/InputForm';
 import {
   MainHeader,
   BoxSearchInput,
+  SearchInput,
+  ButtonSearchSubmit,
   BoxTextDivisor,
   Line,
   OrTextDivisor,
@@ -98,17 +100,22 @@ const App = () => {
     try {
       const response = await AsyncStorage.getItem(DATA_KEY);
       const comandas = response ? JSON.parse(response) : [];
+      let achou = false;
       comandas.map((comanda) => {
         if (comanda.id == idLido) {
           setValue('name', comanda.name)
           setValue('description', comanda.description)
           setExistingName(comanda.name);
           setExistingDesc(comanda.description);
+          setSearchValue('');
+          setResult(idLido);
+          achou = true;
         }
-      })
+      });
+      !achou && Alert.alert("Dados inseridos de forma errada!", "Digite o número de uma comanda EXISTENTE ou escaneie o qrcode de uma comanda EXISTENTE!");
     } catch (error){
       console.log(error);
-      Alert.alert("Não foi possível salvar!");
+      Alert.alert("Falha ao consultar comanda!");
     }
   }
 
@@ -215,33 +222,25 @@ const App = () => {
     );
   }
 
+  function handleSearch() {
+    searchValue && loadRegisterWhenScanned(searchValue);
+  }
+
   function closeInfo() {
     reset();
     setResult(null);
     setExistingName('');
     setExistingDesc('');
+    setSearchValue('');
   }
 
   onSuccess = (e) => {
-    console.log(e.data);
-    for(let i=0; i<50; i++) {
-      if(e.data==i) {
-        loadRegisterWhenScanned(e.data);
-        setResult(e.data);
-        setScan(false);
-        return;
-      }
-    } 
-
-    Alert.alert("QrCode inválido!");
+    loadRegisterWhenScanned(e.data);
     setScan(false);
   }
 
   startScan = () => {
-    setResult(null);
-    setExistingName('');
-    setExistingDesc('');
-    reset();
+    closeInfo();
     setScan(true);
   }
 
@@ -289,11 +288,18 @@ const App = () => {
             { !scan &&
               <MainHeader>
                 <BoxSearchInput>
-                  <TextInput
+                  <SearchInput
                     onChangeText={setSearchValue}
                     value={searchValue}
+                    keyboardType="numeric"
                     placeholder="Pesquisar pelo nº da comanda"
                   />
+                  <ButtonSearchSubmit
+                    activeOpacity={0.7}
+                    onPress={handleSearch}
+                  >
+                    <IconSearch name="search1" size={24} color="#B2B2B2" />
+                  </ButtonSearchSubmit>
                 </BoxSearchInput>
                 <BoxTextDivisor>
                   <Line/>
