@@ -95,25 +95,28 @@ const App = () => {
   }
 
   async function handleRegister(form) {
-    const comandaAtualizada = {
-      id: result,
-      name: form.name,
-      description: form.description
-    }
-    
     try {
+      const comandaAtualizada = {
+        id: result,
+        name: form.name,
+        description: form.description
+      }
+
       const data = await AsyncStorage.getItem(DATA_KEY);
       const currentData = data ? JSON.parse(data) : [];
 
-      const dataFormatted = [
-        comandaAtualizada,
-        ...currentData
-      ]
+      currentData.map((comanda, index) => {
+        if (comanda.id == result) {
+          currentData[index] = comandaAtualizada;
+        }
+      });
 
-      await AsyncStorage.setItem(DATA_KEY, JSON.stringify(dataFormatted));
+      await AsyncStorage.setItem(DATA_KEY, JSON.stringify(currentData));
+      setRegister(currentData);
 
       /*Resetando os campos após o cadastro:*/
       reset();
+      setResult(null);
       setExistingName('');
       setExistingDesc('');
 
@@ -123,9 +126,33 @@ const App = () => {
     }
   }
 
+  function confirmRegister(form) {
+    Alert.alert(
+      'ATENÇÃO!',
+      'Deseja CONFIRMAR as alterações nesta comanda?',
+      [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Confirmar", onPress: () => handleRegister(form) }
+      ]
+    );
+  }
+
   onSuccess = (e) => {
-    loadRegisterWhenScanned(e.data);
-    setResult(e.data);
+    let value = e.data;
+    for(let i=0; i<50; i++) {
+      if(value==i) {
+        loadRegisterWhenScanned(value);
+        setResult(value);
+        setScan(false);
+        return;
+      }
+    } 
+
+    Alert.alert("QrCode inválido!");
     setScan(false);
   }
 
@@ -215,7 +242,7 @@ const App = () => {
                   </Fields>
                   <SubmitButton 
                     title="Salvar comanda"
-                    onPress={handleSubmit(handleRegister)}
+                    onPress={handleSubmit(confirmRegister)}
                   />
                 </Form>
               </View>
