@@ -1,4 +1,4 @@
-# React Native Tutorial: QRCode Scanner App for Android or iOS
+CHAPLIN COMANDAS
 
  - Funcionamento do App: https://www.youtube.com/watch?v=jDp-5pxv_gg&ab_channel=ManoelPrado
 
